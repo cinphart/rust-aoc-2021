@@ -33,7 +33,7 @@ impl ops::Add<Point> for Point {
 struct MoveState {
     pub x: i32,
     pub y: i32,
-    pub aim: i32
+    pub aim: i32,
 }
 
 impl Move {
@@ -55,21 +55,21 @@ impl Move {
     }
     fn update_state(self: &Self, state: &MoveState) -> MoveState {
         match self.direction {
-            Direction::FORWARD => MoveState{
+            Direction::FORWARD => MoveState {
                 x: state.x + self.distance as i32,
                 y: state.y + state.aim * self.distance as i32,
-                aim: state.aim
+                aim: state.aim,
             },
-            Direction::DOWN => MoveState{
+            Direction::DOWN => MoveState {
                 x: state.x,
-                y:state.y,
-                aim: state.aim + self.distance as i32
+                y: state.y,
+                aim: state.aim + self.distance as i32,
             },
             Direction::UP => MoveState {
                 x: state.x,
-                y:state.y,
-                aim: state.aim - self.distance as i32
-            }
+                y: state.y,
+                aim: state.aim - self.distance as i32,
+            },
         }
     }
 }
@@ -99,8 +99,8 @@ fn part1(name: &str) -> i32 {
         .split("\r\n")
         .filter(|s| s.len() != 0)
         .map(|s| s.parse::<Move>().unwrap().point())
-        .fold(Point{x:0,y:0}, |acc,p| acc + p);
-    f.x*f.y
+        .fold(Point { x: 0, y: 0 }, |acc, p| acc + p);
+    f.x * f.y
 }
 
 fn part2(name: &str) -> i32 {
@@ -109,8 +109,10 @@ fn part2(name: &str) -> i32 {
         .split("\r\n")
         .filter(|s| s.len() != 0)
         .map(|s| s.parse::<Move>().unwrap())
-        .fold(MoveState{x:0,y:0,aim:0}, |acc,p| p.update_state(&acc));
-    f.x*f.y
+        .fold(MoveState { x: 0, y: 0, aim: 0 }, |acc, p| {
+            p.update_state(&acc)
+        });
+    f.x * f.y
 }
 
 fn main() {
@@ -119,6 +121,9 @@ fn main() {
         "Part 1 failed validation"
     );
     println!("Part 1: {}", part1("data/Day02.txt"));
-    assert!(part2("data/Day02_test.txt") == 900, "Part 2 failed validation");
+    assert!(
+        part2("data/Day02_test.txt") == 900,
+        "Part 2 failed validation"
+    );
     println!("Part 2: {}", part2("data/Day02.txt"));
 }
