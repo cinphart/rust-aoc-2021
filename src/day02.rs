@@ -1,5 +1,4 @@
 use regex::Regex;
-use std::assert;
 use std::fs;
 use std::ops;
 use std::string::ParseError;
@@ -116,14 +115,22 @@ fn part2(name: &str) -> i32 {
 }
 
 fn main() {
-    assert!(
-        part1("data/Day02_test.txt") == 150,
-        "Part 1 failed validation"
-    );
     println!("Part 1: {}", part1("data/Day02.txt"));
-    assert!(
-        part2("data/Day02_test.txt") == 900,
-        "Part 2 failed validation"
-    );
     println!("Part 2: {}", part2("data/Day02.txt"));
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn part1_works() {
+        assert_eq!(part1("data/Day02_test.txt"), 150);
+    }
+
+    #[test]
+    fn part2_works() {
+        assert_eq!(part2("data/Day02_test.txt"), 900);
+    }
 }
