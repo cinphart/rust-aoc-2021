@@ -59,16 +59,34 @@ fn part2(name: &str) -> u32 {
     let mut scrub = log.clone();
 
     for s in 0..maxlen {
-        let ogen_pick = match difference_at_pos(s, &ogen) { x if x < 0 => '0', _ => '1' };
-        let scrub_pick = match difference_at_pos(s, &scrub) { x if x < 0 => '1', _ => '0'};
-        ogen = if ogen.len() > 1 { matching_only(s, ogen_pick, &ogen) } else { ogen } ;
-        scrub = if scrub.len() > 1 { matching_only(s, scrub_pick, &scrub) } else { scrub } ;
+        let ogen_pick = match difference_at_pos(s, &ogen) {
+            x if x < 0 => '0',
+            _ => '1',
+        };
+        let scrub_pick = match difference_at_pos(s, &scrub) {
+            x if x < 0 => '1',
+            _ => '0',
+        };
+        ogen = if ogen.len() > 1 {
+            matching_only(s, ogen_pick, &ogen)
+        } else {
+            ogen
+        };
+        scrub = if scrub.len() > 1 {
+            matching_only(s, scrub_pick, &scrub)
+        } else {
+            scrub
+        };
     }
 
-    let ogen_result = ogen[0].iter().fold(0u32, |a,s| return 2*a + if *s == '1' { 1 } else {0 });
-    let scrub_result = scrub[0].iter().fold(0u32, |a,s| return 2*a + if *s == '1' { 1 } else {0 });
+    let ogen_result = ogen[0]
+        .iter()
+        .fold(0u32, |a, s| return 2 * a + if *s == '1' { 1 } else { 0 });
+    let scrub_result = scrub[0]
+        .iter()
+        .fold(0u32, |a, s| return 2 * a + if *s == '1' { 1 } else { 0 });
 
-    ogen_result*scrub_result
+    ogen_result * scrub_result
 }
 
 fn main() {
